@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SampleMVCApp.ApplicationDbContext;
+using SampleMVCApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -10,12 +12,12 @@ namespace SampleMVCApp.Controllers
 {
  
     public class EmployeeController : Controller
-    {
-        private readonly EmployeeDbEntities employeeDbEntities = new EmployeeDbEntities();
+    { 
+        private readonly AppDbContext appDbContext = new AppDbContext();
         public ActionResult Index()
         {
             
-            return View(employeeDbEntities.Employees.ToList());
+            return View(appDbContext.Employees.ToList());
         }
 
 
@@ -34,8 +36,8 @@ namespace SampleMVCApp.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    employeeDbEntities.Employees.Add(employee);
-                    employeeDbEntities.SaveChanges();
+                    appDbContext.Employees.Add(employee);
+                    appDbContext.SaveChanges();
                    
                 }
 
@@ -54,7 +56,7 @@ namespace SampleMVCApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = employeeDbEntities.Employees.Find(id);
+            Employee employee = appDbContext.Employees.Find(id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -68,7 +70,7 @@ namespace SampleMVCApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = employeeDbEntities.Employees.Find(id);
+            Employee employee = appDbContext.Employees.Find(id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -84,8 +86,8 @@ namespace SampleMVCApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    employeeDbEntities.Entry(employee).State = EntityState.Modified;
-                    employeeDbEntities.SaveChanges();
+                    appDbContext.Entry(employee).State = EntityState.Modified;
+                    appDbContext.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 return View(employee);
@@ -105,9 +107,9 @@ namespace SampleMVCApp.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Employee employee = employeeDbEntities.Employees.Find(id);
-                employeeDbEntities.Employees.Remove(employee);
-                employeeDbEntities.SaveChanges();
+                Employee employee = appDbContext.Employees.Find(id);
+                appDbContext.Employees.Remove(employee);
+                appDbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

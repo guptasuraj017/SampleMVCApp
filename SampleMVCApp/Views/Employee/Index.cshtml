@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Employee>
+﻿@model IEnumerable<SampleMVCApp.Models.Employee>
 @{
     ViewBag.Title = "Index";
 }
@@ -8,16 +8,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Age)
+            @Html.DisplayNameFor(model => model.age)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Department)
+            @Html.DisplayNameFor(model => model.department)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Salary)
+            @Html.DisplayNameFor(model => model.salary)
         </th>
         <th></th>
     </tr>
@@ -26,20 +26,20 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Age)
+                @Html.DisplayFor(modelItem => item.age)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Department)
+                @Html.DisplayFor(modelItem => item.department)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Salary)
+                @Html.DisplayFor(modelItem => item.salary)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId })
+                @Html.ActionLink("Edit", "Edit", new { id = item.employeeid }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.employeeid })
             </td>
         </tr>
     }
