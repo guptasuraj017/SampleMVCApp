@@ -11,10 +11,15 @@ namespace SampleMVCApp.Models
     public class Employee
     {
         [Key]
+        [Display(Name ="Name")]
         public int employeeid { get; set; }
+        [Display(Name = "Name")]
         public string name { get; set; }
+        [Display(Name = "Age")]
         public short age { get; set; }
+        [Display(Name = "Department")]
         public string department { get; set; }
+        [Display(Name = "Salary")]
         public int salary { get; set; }
     }
 }

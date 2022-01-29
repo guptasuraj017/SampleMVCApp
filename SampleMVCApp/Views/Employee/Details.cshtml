@@ -1,0 +1,29 @@
+﻿@model SampleMVCApp.Models.Employee
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">@Model.name</div>
+    <div class="panel-body">
+        <ul>
+            <li>
+                <span>Name : @Model.name</span>
+            </li>
+            <li>
+                <span>Age : @Model.age</span>
+            </li>
+            <li>
+                <span>Department : @Model.department</span>
+            </li>
+            <li>
+                <span>Salary : @Model.salary</span>
+            </li>
+        </ul>
+    </div>
+    <div class="panel-footer">
+        @Html.ActionLink("Back", "Index", new { }, new { @class = "btn btn-primary" })
+    </div>
+</div>

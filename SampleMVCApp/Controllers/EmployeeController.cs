@@ -50,6 +50,7 @@ namespace SampleMVCApp.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
