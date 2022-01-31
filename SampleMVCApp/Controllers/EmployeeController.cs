@@ -7,6 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+using SampleMVCApp.ViewModel;
 
 namespace SampleMVCApp.Controllers
 {
@@ -117,6 +119,31 @@ namespace SampleMVCApp.Controllers
             {
                 return RedirectToAction("Index");
             }
+        }
+
+        [HttpGet]
+        public ActionResult DirectoryInfo()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DirectoryInfo(FormCollection formCollection)
+        {
+            var directoryInfo = GetDirectoryDetails(formCollection[0]);
+            return View(directoryInfo);
+        }
+        public DirectoryInfoViewModel GetDirectoryDetails(string path)
+        {
+            var pathConfigure = @path;
+            var directory = new DirectoryInfo(pathConfigure);
+            var directoryInfo = new DirectoryInfoViewModel()
+            {
+                DierecotoryList = directory.GetDirectories().ToList(),
+                FileList = directory.GetFiles().ToList()
+
+            };
+            
+            return directoryInfo;
         }
     }
 }
