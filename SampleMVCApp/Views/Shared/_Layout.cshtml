@@ -17,7 +17,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Employee Management", "Index", "Employee", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Directory Info", "DirectoryInfo", "Employee", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Directory Info", "DirectoryInfo", "Directory", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Command Executor", "RunCommand", "Command", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -30,7 +31,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Employee Management </p>
+            <p>&copy; @DateTime.Now.Year - Sample MVC Application </p>
         </footer>
     </div>
 

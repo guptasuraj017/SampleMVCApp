@@ -5,7 +5,7 @@
 
 <h2>DirectoryInfo</h2>
 
-<form class="form-horizontal" action="/Employee/DirectoryInfo" method="post">
+<form class="form-horizontal" action="/Directory/DirectoryInfo" method="post">
     <div class="form-group">
         <label class="control-label" for="path">Enter the path</label>
         <input class="form-control" id="path" type="text" name="path" />
@@ -17,7 +17,7 @@
 
 @if (Model != null)
 {
-    if (Model.FileList.Count>0)
+    if (Model.FileList.Count > 0)
     {
         <h5>Files List</h5>
 
@@ -35,7 +35,7 @@
         <h5>There is file in this directory ..</h5>
     }
 
-    if (Model.DierecotoryList.Count>0)
+    if (Model.DierecotoryList.Count > 0)
     {
         <h5>Sub-Directory  List</h5>
         foreach (var directory in Model.DierecotoryList)
@@ -50,7 +50,7 @@
     }
     else
     {
-        <h5>There is no subdirectory in this directory ..</h5>
+        <h5>There is no sub-directory in this directory ..</h5>
     }
 
 }
