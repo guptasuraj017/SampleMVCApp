@@ -14,7 +14,7 @@ namespace SampleMVCApp.Controllers
             try
             {
                 ViewBag.BaseObject = null;
-                return View();
+                return View("RunCommand");
             }
             catch (Exception)
             {
@@ -30,7 +30,7 @@ namespace SampleMVCApp.Controllers
                 var result = commandClass.RunCmdlets(commandName);
                 var baseObject = result.BaseObject;
                 ViewBag.BaseObject = baseObject;
-                return View();
+                return View("RunCommand");
             }
             catch (Exception)
             {
