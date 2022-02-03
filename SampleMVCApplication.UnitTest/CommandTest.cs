@@ -18,7 +18,7 @@ namespace SampleMVCApplication.UnitTest
             var psObject = new Command();
 
             //Act
-            var outputPsObject= psObject.RunCmdlets("Add-AppPackage");
+            var outputPsObject= psObject.RunCmdlets("Get-Command","Add-AppPackage");
 
             //Assert
             Assert.AreEqual("Add-AppPackage", outputPsObject.BaseObject.ToString());

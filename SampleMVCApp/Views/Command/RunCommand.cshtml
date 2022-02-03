@@ -3,16 +3,22 @@
     ViewBag.Title = "RunCommand";
 }
 
-<h2>RunCommand</h2>
-<form class="form-horizontal" action="/Command/RunCommand" method="post">
-    <div class="form-group">
-        <label class="control-label" for="commandName">Command Name</label>
-        <input type="text" id="commandName" class="form-control" name="commandName" />
-    </div>
-    <input class="btn btn-primary" type="submit" value="Run" />
-</form>
+<h2>Command Management</h2>
+<ul>
+    <li>
+        <a href="#" id="getCommandDetails">Get Command Details</a>
+    </li>
+</ul>
+<div id="formDiv">
+
+</div>
+
+
+
+
 @if (ViewBag.BaseObject != null)
 {
+
     <div>
         <ul>
             <li>
@@ -24,3 +30,23 @@
         </ul>
     </div>
 }
+
+
+@section scripts{
+    <script>
+        $('#getCommandDetails').on('click', function () {
+            alert("Get Command Details Clicked");
+            $('#formDiv').html(`<form class="form-horizontal" action="/Command/RunCommand" method="post">
+     
+    <div class="form-group">
+        <label class="control-label" for="commandParameterCommandName">Command Name</label>
+        <input type="text" id="commandParameterCommandName" class="form-control" name="commandParameterCommandName" />
+    </div>
+     <input type="hidden" id="commandName" name="commandName" value="Get-Command"/>
+    <input class="btn btn-primary" type="submit" value="Run" />
+</form>`);
+        });
+    </script>
+
+}
+
