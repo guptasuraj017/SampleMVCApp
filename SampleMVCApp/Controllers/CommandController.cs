@@ -1,45 +1,49 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
 using System;
+using MongoDB.Bson;
+using System.Collections.Generic;
+using BusinessLayer;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Web;
 
 namespace SampleMVCApp.Controllers
 {
     
     public class CommandController : Controller
     {
-        private readonly BusinessLayer.Command commandClass =new BusinessLayer.Command();
-        [System.Web.Mvc.HttpGet]
-        public ActionResult RunCommand()
-        {
-            try
-            {
-                ViewBag.BaseObject = null;
-                return View("RunCommand");
-            }
-            catch (Exception)
-            {
+        private readonly BusinessLayer.CommandRepo commandRepo =new BusinessLayer.CommandRepo();
 
-                return View("Error");
-            }
+        public ActionResult Index()
+        {
+            return View();
         }
+
         [System.Web.Mvc.HttpPost]
-        public ActionResult RunCommand([FromBody]string commandName, [FromBody]string commandParameterCommandName)
+        public JsonResult RunCommand(Command command)
         {
+
             try
             {
-                var result = commandClass.RunCmdlets(commandName, commandParameterCommandName);
-                var baseObject = result.BaseObject;
-                ViewBag.BaseObject = baseObject;
-                return View("RunCommand");
+                var result = commandRepo.RunCmdlets(command);
+                var baseObject = result[0].BaseObject;
+                var jsonBaseObject= JsonConvert.SerializeObject(baseObject);
+                return Json(jsonBaseObject, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
-
-                return View ("Error");
+                throw;
             }
-            
+
         }
-
-
+        
+       
+       
+        
     }
+
 }

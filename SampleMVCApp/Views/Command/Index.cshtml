@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Command List</h2>
+
+<div id="divResult">
+
+</div>
+
+<div id="mainDiv">
+
+</div>
+
+<ul id="ulDiv">
+
+</ul>
+
+
+@section scripts
+    {
+    <script>
+
+
+
+
+
+        $(document).ready(function () {
+            $.ajax({
+                url: 'https://localhost:44346/api/Command/GetAllCommands',
+                method: 'get',
+                success: function (commands) {
+                    console.log(commands);
+                    bind(commands);
+                }
+            })
+        });
+
+        function getCommand(commandId) {
+            $.ajax({
+                url: 'https://localhost:44346/api/Command/GetCommand/?commandId=' + commandId,
+                method: 'get',
+                success: function (data) {
+                    console.log('Getting data from GetCommand');
+                    console.log(data);
+                    let form = document.createElement('form');
+                    form.setAttribute('id', 'formDiv');
+                    $('#mainDiv').append(form);
+
+                    let inpuElement = document.createElement('input');
+                    inpuElement.setAttribute('id', 'commandId');
+                    inpuElement.setAttribute('name', 'commandId');
+                    inpuElement.setAttribute('type', 'hidden');
+                    inpuElement.setAttribute('value', data.commandId);
+                    form.append(inpuElement);
+
+                    inpuElement = document.createElement('input');
+                    inpuElement.setAttribute('id', 'key');
+                    inpuElement.setAttribute('name', 'key');
+                    inpuElement.setAttribute('type', 'hidden');
+                    inpuElement.setAttribute('value', data.key);
+                    form.append(inpuElement);
+
+   
+                    for (let parameter of data.params) {
+                        let labelElement = document.createElement('label');
+                        labelElement.setAttribute('for', parameter.parameterName);
+                        labelElement.append(parameter.parameterName);
+                        form.append(labelElement);
+
+                        inpuElement = document.createElement('input');
+                        inpuElement.setAttribute('id', parameter.parameterName);
+                        inpuElement.setAttribute('name', parameter.parameterName);
+                        inpuElement.setAttribute('type', 'text');
+                        form.append(inpuElement);
+                    }
+
+                    inpuElement = document.createElement('input');
+                    inpuElement.setAttribute('id', 'value');
+                    inpuElement.setAttribute('name', 'value');
+                    inpuElement.setAttribute('type', 'hidden');
+                    inpuElement.setAttribute('value', data.value);
+                    form.append(inpuElement);
+
+
+                    inpuElement = document.createElement('input');
+                    inpuElement.setAttribute('id', '_id');
+                    inpuElement.setAttribute('name', '_id');
+                    inpuElement.setAttribute('type', 'hidden');
+                    inpuElement.setAttribute('value', data._id);
+                    form.append(inpuElement);
+
+
+                    inpuElement = document.createElement('input');
+                    inpuElement.setAttribute('type', 'submit');
+                    inpuElement.setAttribute('value', 'run');
+                    form.append(inpuElement);
+
+
+
+                    formDiv.onsubmit = (e) => {
+                        e.preventDefault();
+                        let form = new FormData(formDiv);
+                        let parameters = [];
+                        let commandObject = {};
+                        for (let parameter of data.params) {
+                            let commandParameterObject= {
+                                'parameterName': parameter.parameterName,
+                                'parameterValue': form.get(parameter.parameterName)
+                            };
+
+                            console.log(commandParameterObject);
+                            parameters.push(commandParameterObject);
+                        }
+                        console.log('logging parameters array');
+                        console.log(parameters);
+
+                        commandObject['commandId'] = data.commandId;
+                        commandObject['key'] = data.key;
+                        commandObject['value'] = data.value;
+                        commandObject['_id'] = data._id;
+                        commandObject['params'] = parameters;
+
+                        console.log('logging commandObject');
+                        console.log(commandObject);
+                        
+                       
+                        console.log(JSON.stringify(commandObject));
+                        $.ajax({
+                            url: 'https://localhost:44303/Command/RunCommand',
+                            method: 'post',
+                            data: JSON.stringify(commandObject),
+                            contentType: 'application/json',
+                            success: function (data) {
+                                console.log(data);
+                                let objData = JSON.parse(data);
+                                for (let key in objData) {
+                                    
+                                    $("#ulDiv").append(`<li><span>'${key}' : '${objData[key]}'<span></li>`);
+                                }
+                                alert('request posted successfully');
+                            }
+                        });
+                    }
+                    
+                }
+            });
+        }
+
+        function bind(commands) {
+            $("#divResult").append(`<ul></ul>`);
+            
+            for (let command of commands) {
+                $("#divResult ul").append(`<li><a href="#" onclick="getCommand(${command.commandId})">${command.key}</a></li>`);
+            }
+        }
+
+    </script>
+    }
+
+

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BusinessLayer;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SampleMVCApp.Controllers;
 using System.Web.Mvc;
 
@@ -12,14 +13,14 @@ namespace SampleMVCApplication.UnitTest
         {
             //Arrange
             var commandController = new CommandController();
-            
+            var commandObj = new Command();
             //Act
-            var result=commandController.RunCommand() as ViewResult;
+            var result = commandController.RunCommand(commandObj) as JsonResult ;
 
             //Assert
-            Assert.AreEqual("RunCommand", result.ViewName);
+            Assert.AreEqual("RunCommand", result.Data);
 
         }
-       
+
     }
 }

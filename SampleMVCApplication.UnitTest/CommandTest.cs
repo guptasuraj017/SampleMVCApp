@@ -15,13 +15,14 @@ namespace SampleMVCApplication.UnitTest
         public void CommandMethodTest()
         {
             //Arrange
-            var psObject = new Command();
+            var psObject = new CommandRepo();
+            var commandObj = new Command();
 
             //Act
-            var outputPsObject= psObject.RunCmdlets("Get-Command","Add-AppPackage");
+            var outputPsObjectCollection = psObject.RunCmdlets(commandObj);
 
             //Assert
-            Assert.AreEqual("Add-AppPackage", outputPsObject.BaseObject.ToString());
+            Assert.AreEqual("Add-AppPackage", outputPsObjectCollection[0].BaseObject.ToString());
         }
     }
 }
