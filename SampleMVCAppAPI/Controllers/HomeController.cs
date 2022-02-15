@@ -4,13 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SampleMVCApp.Controllers
+namespace SampleMVCAppAPI.Controllers
 {
-    public class CommandController : Controller
+    public class HomeController : Controller
     {
-        // GET: Command
         public ActionResult Index()
         {
+            ViewBag.Title = "Home Page";
+
             return View();
         }
     }
